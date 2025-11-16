@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PEDIATRÍA SLS</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      background: #f5f7fb;
+      color: #111827;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: #ffffffcc; backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e1e4f0;
+    }
+
+    .nav-container {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 800; font-size: 1.15rem;
+      letter-spacing: 0.04em;
+    }
+    .logo span {
+      color: #2563eb;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex; gap: 1.2rem;
+      font-size: 0.95rem;
+    }
+    nav li a {
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+    nav li a:hover { background: #e0ebff; }
+
+    .container {
+      max-width: 1100px; margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 60vh;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2rem; align-items: center;
+    }
+
+    .hero-highlight {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      background: #fee2e2;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: #b91c1c;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2rem, 4vw, 2.7rem);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-sub {
+      display: inline-block;
+      padding: 0.18rem 0.6rem;
+      background: #dbeafe;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      color: #1d4ed8;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+      color: #4b5563;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
+    }
+
+    .btn-primary {
+      background: #2563eb; color: #fff;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-ghost {
+      background: #e5e7eb; color: #111827;
+    }
+    .btn-ghost:hover {
+      background: #d1d5db;
+      transform: translateY(-1px);
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+      font-size: 0.9rem;
+    }
+    .hero-card h2 {
+      font-size: 1.05rem;
+      margin-bottom: 0.7rem;
+    }
+    .hero-card ul {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+      color: #4b5563;
+    }
+
+    section {
+      padding: 3rem 0 1rem;
+      scroll-margin-top: 5rem;
+    }
+    section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+
+    /* PRESENTACIONES */
+    .cards-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 1.2rem;
+      padding: 1.3rem;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .card-topic {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .card-buttons {
+      margin-top: 0.3rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .btn-small {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.8rem;
+    }
+    .btn-outline {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+    }
+    .btn-outline:hover {
+      background: #f3f4f6;
+      transform: translateY(-1px);
+    }
+
+    /* SOBRE MÍ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+      gap: 1.6rem;
+      align-items: flex-start;
+    }
+    .about-box {
+      background: #eef2ff;
+      border-radius: 1.2rem;
+      padding: 1.1rem 1.3rem;
+      border: 1px solid #e0e7ff;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+    .about-list {
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+    }
+    .about-list li::before {
+      content: "• ";
+      color: #2563eb;
+      font-weight: 700;
+    }
+
+    /* YOUTUBE */
+    .youtube-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    footer {
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      color: #6b7280;
+      font-size: 0.8rem;
+      background: #ffffff;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .about-grid,
+      .youtube-grid {
+        grid-template-columns: 1fr;
+      }
+      nav ul {
+        display: none;
+      }
+      .nav-container {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="nav-container">
+    <div class="logo">PEDIATRÍA<span> SLS</span></div>
+    <nav>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#presentaciones">Presentaciones</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#youtube">YouTube</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero-text">
+      <div class="hero-highlight">Material académico en pediatría</div>
+      <span class="hero-sub">Presentaciones · Casos clínicos · Repaso para residentes</span>
+      <h1>PEDIATRÍA SLS</h1>
+      <p>
+        Plataforma para concentrar presentaciones de pediatría y sus videos explicados.
+        Ideal para estudiantes de medicina, residentes y médicos generales interesados en pediatría.
+      </p>
+      <div class="hero-buttons">
+        <a href="#presentaciones" class="btn btn-primary">Ver presentaciones</a>
+        <a href="#youtube" class="btn btn-ghost">Ver canal de YouTube</a>
+      </div>
+    </div>
+
+    <aside class="hero-card">
+      <h2>¿Qué encontrarás aquí?</h2>
+      <ul>
+        <li>Presentaciones sobre temas clave de pediatría.</li>
+        <li>Enlaces directos a los videos de cada tema.</li>
+        <li>Acceso a las diapositivas en Google Slides.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- PRESENTACIONES -->
+  <section id="presentaciones">
+    <h2>Presentaciones de pediatría</h2>
+    <p class="section-subtitle">
+      Cada tarjeta incluye el tema, una breve descripción y el acceso al video,
+      además del enlace a las diapositivas en Google Slides.
+    </p>
+
+    <div class="cards-grid">
+      <!-- 1. MODOS DE VENTILACIÓN AC -->
+      <article class="card">
+        <span class="card-topic">Cuidados intensivos / ventilación</span>
+        <h3>Modos de ventilación AC</h3>
+        <p>
+          Revisión del modo asistido-controlado (AC): parámetros básicos, indicaciones,
+          puntos clave para vigilancia y situaciones frecuentes en UCIN/UTIP.
+        </p>
+        <div class="card-meta">
+          Video ~25 min · Nivel: R1–R2 pediatría / médicos de urgencias.
+        </div>
+        <div class="card-buttons">
+          <a href="https://docs.google.com/presentation/d/1dE6lO4iwKqgtERNTvvM6SYIYugzqDrlr/edit?usp=drive_link&amp;ouid=111460012129242339982&amp;rtpof=true&amp;sd=true"
+             class="btn btn-outline btn-small"
+             target="_blank" rel="noopener">
+            Ver presentación (diapositivas)
+          </a>
+          <a href="https://youtu.be/3ohXaljbeeM?si=1XxP2uYj6OI1uqa9"
+             class="btn btn-primary btn-small"
+             target="_blank" rel="noopener">
+            Ver video en YouTube
+          </a>
+        </div>
+      </article>
+
+      <!-- 2. NEFROPATÍA POR IgA -->
+      <article class="card">
+        <span class="card-topic">Nefropediatría</span>
+        <h3>Nefropatía por IgA</h3>
+        <p>
+          Abordaje de la nefropatía por IgA en el paciente pediátrico:
+          fisiopatología, manifestaciones clínicas, hallazgos de laboratorio y enfoque terapéutico.
+        </p>
+        <div class="card-meta">
+          Video ~30 min · Nivel: R2–R3 pediatría / nefropediatría.
+        </div>
+        <div class="card-buttons">
+          <a href="https://docs.google.com/presentation/d/1NFKDBo4mPU1szTu4qHw6rhM3QMeR2NWG/edit?usp=sharing&amp;ouid=111460012129242339982&amp;rtpof=true&amp;sd=true"
+             class="btn btn-outline btn-small"
+             target="_blank" rel="noopener">
+            Ver presentación (diapositivas)
+          </a>
+          <a href="https://youtu.be/ED_QSEiBCAs?si=fRuk4kzzKbRBGDz-"
+             class="btn btn-primary btn-small"
+             target="_blank" rel="noopener">
+            Ver video en YouTube
+          </a>
+        </div>
+      </article>
+
+      <!-- 3. PÚRPURA DE HENOCH-SCHÖNLEIN -->
+      <article class="card">
+        <span class="card-topic">Reumatología pediátrica</span>
+        <h3>Púrpura de Henoch-Schönlein</h3>
+        <p>
+          Explicación del mecanismo inmunológico, clínica típica (piel, articulaciones, tubo digestivo y riñón),
+          criterios diagnósticos y manejo inicial.
+        </p>
+        <div class="card-meta">
+          Video ~20 min · Nivel: estudiantes y residentes de pediatría.
+        </div>
+        <div class="card-buttons">
+          <a href="https://docs.google.com/presentation/d/1noGu6E_nHlQYNe6SrRxOBkbwOGhue8ZX/edit?usp=sharing&amp;ouid=111460012129242339982&amp;rtpof=true&amp;sd=true"
+             class="btn btn-outline btn-small"
+             target="_blank" rel="noopener">
+            Ver presentación (diapositivas)
+          </a>
+          <a href="https://youtu.be/Kq35YbO-MOg?si=ZjvMDUSl-uGFic06"
+             class="btn btn-primary btn-small"
+             target="_blank" rel="noopener">
+            Ver video en YouTube
+          </a>
+        </div>
+      </article>
+
+      <!-- PLANTILLA PARA FUTUROS TEMAS -->
+      <!--
+      <article class="card">
+        <span class="card-topic">Subespecialidad / área</span>
+        <h3>Título de la presentación</h3>
+        <p>
+          Breve descripción del contenido: enfoque, puntos clave y utilidad
+          para guardias / exámenes / práctica clínica.
+        </p>
+        <div class="card-meta">
+          Video ~XX min · Nivel: estudiantes / R1 / R2 / etc.
+        </div>
+        <div class="card-buttons">
+          <a href="ENLACE_A_TU_GOOGLE_SLIDES"
+             class="btn btn-outline btn-small"
+             target="_blank" rel="noopener">
+            Ver presentación (diapositivas)
+          </a>
+          <a href="ENLACE_COMPLETO_DEL_VIDEO_EN_YOUTUBE"
+             class="btn btn-primary btn-small"
+             target="_blank" rel="noopener">
+            Ver video en YouTube
+          </a>
+        </div>
+      </article>
+      -->
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <h2>Sobre PEDIATRÍA SLS</h2>
+    <p class="section-subtitle">
+      Espacio creado para centralizar presentaciones de pediatría y facilitar el estudio
+      basado en casos reales, fisiopatología y manejo actualizado.
+    </p>
+
+    <div class="about-grid">
+      <div>
+        <p>
+          PEDIATRÍA SLS nace como un proyecto académico independiente enfocado en la
+          formación continua de estudiantes de medicina, residentes y médicos que buscan
+          reforzar temas clave de pediatría de forma clara y práctica.
+        </p>
+        <br />
+        <p>
+          El contenido se basa en guías clínicas, literatura reciente y experiencia de
+          guardias y rotaciones en servicios pediátricos. El objetivo es que cada
+          presentación sea útil para la vida real: guardias, pases de visita,
+          casos clínicos y exámenes.
+        </p>
+      </div>
+      <div class="about-box">
+        <ul class="about-list">
+          <li>Enfoque en pediatría clínica y cuidados intensivos.</li>
+          <li>Presentaciones pensadas para repaso rápido antes de la guardia.</li>
+          <li>Videos con explicación pausada, con razonamiento clínico.</li>
+          <li>Proyecto académico sin fines de lucro.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE -->
+  <section id="youtube">
+    <h2>Canal de YouTube</h2>
+    <p class="section-subtitle">
+      Suscríbete para recibir notificaciones de nuevas presentaciones y casos clínicos
+      explicados paso a paso.
+    </p>
+
+    <div class="youtube-grid">
+      <div>
+        <p>
+          En el canal encontrarás las mismas presentaciones de esta página, pero con
+          explicación guiada, comentarios clínicos y tips útiles para tu práctica diaria.
+        </p>
+        <br />
+        <a href="https://www.youtube.com/@PediatriaRX"
+           class="btn btn-primary"
+           target="_blank" rel="noopener">
+          Ir a mi canal de YouTube
+        </a>
+        <p style="font-size: 0.85rem; color:#6b7280; margin-top: 0.7rem;">
+          Canal oficial: @PediatriaRX
+        </p>
+      </div>
+
+      <!-- Video destacado -->
+      <div class="video-wrapper">
+        <!-- Video de Modos de ventilación AC como destacado -->
+        <iframe
+          src="https://www.youtube.com/embed/3ohXaljbeeM"
+          title="Video destacado de PEDIATRÍA SLS"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> PEDIATRÍA SLS · Material académico sin fines de lucro.
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
